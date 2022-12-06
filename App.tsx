@@ -43,7 +43,6 @@ export default function App() {
           </Text>
         </ScrollView>
       </View>
-
       <StatusBar style="auto" />
     </View>
   );
