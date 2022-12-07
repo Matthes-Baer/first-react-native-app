@@ -6,14 +6,15 @@ const SingleListItem = (props: {
   deleteCurrentElement: Function;
 }) => {
   return (
-    <Pressable
-      // This bind expression is needed to insert an argument to the function from a parent component.
-      onPress={props.deleteCurrentElement.bind(this, props.listItemIdx)}
-    >
-      <View>
+    <View>
+      <Pressable
+        // This bind expression is needed to insert an argument to the function from a parent component.
+        onPress={props.deleteCurrentElement.bind(this, props.listItemIdx)}
+        android_ripple={{ color: "red" }}
+      >
         <Text style={styles.text}>{props.listItemData}</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 };
 
@@ -26,5 +27,8 @@ const styles = StyleSheet.create({
     color: "white",
     borderWidth: 1,
     borderColor: "red",
+    width: "70%",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 });
