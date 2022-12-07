@@ -10,7 +10,10 @@ const SingleListItem = (props: {
       <Pressable
         // This bind expression is needed to insert an argument to the function from a parent component.
         onPress={props.deleteCurrentElement.bind(this, props.listItemIdx)}
+        // android-ripple only affects android devices.
         android_ripple={{ color: "red" }}
+        // this styling function affects BOTH android and iOS devices
+        style={(pressedData) => pressedData.pressed && styles.iOSPressedEffect}
       >
         <Text style={styles.text}>{props.listItemData}</Text>
       </Pressable>
@@ -30,5 +33,8 @@ const styles = StyleSheet.create({
     width: "70%",
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  iOSPressedEffect: {
+    backgroundColor: "red",
   },
 });
