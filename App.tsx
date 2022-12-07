@@ -9,6 +9,7 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
+import DataList from "./components/DataList";
 
 export default function App() {
   const [text, setText] = useState<string>("Starting Text");
@@ -52,24 +53,7 @@ export default function App() {
           </Text>
         </ScrollView>
       </View> */}
-      <View style={{ height: 500 }}>
-        <FlatList
-          data={flatListData}
-          renderItem={(itemData) => {
-            return (
-              <View>
-                <Text style={{ fontSize: 45 }}>{itemData.item}</Text>
-              </View>
-            );
-          }}
-          keyExtractor={(item, index) => {
-            // should just be implemented in the state (item) which would be structured as an object with "key" - then this function would not be needed.
-            // Or use "id", for example and return that in this function.
-            const keyValue = `${Math.random().toString()}&${index}`;
-            return keyValue;
-          }}
-        />
-      </View>
+      <DataList flatListData={flatListData} />
       <StatusBar style="auto" />
     </View>
   );
