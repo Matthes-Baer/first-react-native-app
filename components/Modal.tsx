@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   Modal,
+  Image,
 } from "react-native";
 
 const ModalComponent = () => {
@@ -30,8 +31,7 @@ const ModalComponent = () => {
             style={{
               textAlign: "center",
               fontSize: 35,
-              marginTop: 25,
-              marginBottom: 25,
+              marginVertical: 35,
             }}
           >
             The Modal was opened!
@@ -42,6 +42,10 @@ const ModalComponent = () => {
             title="Close Modal"
             color={"red"}
           />
+          <Image
+            style={styles.image}
+            source={require("../assets/images/example-image.png")}
+          />
         </View>
       </Modal>
     </View>
@@ -49,3 +53,14 @@ const ModalComponent = () => {
 };
 
 export default ModalComponent;
+
+const styles = StyleSheet.create({
+  image: {
+    width: 300,
+    height: 300,
+    marginLeft: "auto",
+    marginRight: "auto",
+    borderRadius: 250,
+    marginTop: 35,
+  },
+});
