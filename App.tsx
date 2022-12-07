@@ -10,6 +10,7 @@ import {
   FlatList,
 } from "react-native";
 import DataList from "./components/DataList";
+import Modal from "./components/Modal";
 
 export default function App() {
   const [text, setText] = useState<string>("");
@@ -69,6 +70,7 @@ export default function App() {
         flatListData={flatListData}
         deleteCurrentElement={deleteCurrentElement}
       />
+      <Modal />
       <StatusBar style="auto" />
     </View>
   );
