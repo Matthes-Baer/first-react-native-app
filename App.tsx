@@ -12,11 +12,15 @@ import {
 import DataList from "./components/DataList";
 
 export default function App() {
-  const [text, setText] = useState<string>("Starting Text");
+  const [text, setText] = useState<string>("");
   const [flatListData, setFlatListData] = useState<Array<string>>([
     "This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text.",
     "This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text.",
   ]);
+
+  const deleteCurrentElement = (idx: number) => {
+    setFlatListData((prev) => prev.filter((e: string, i: number) => i != idx));
+  };
 
   return (
     <View style={styles.container}>
@@ -30,7 +34,15 @@ export default function App() {
         <TextInput style={styles.input} onChangeText={setText} value={text} />
         <Text style={{ flex: 1 }}>{text ? text : "placeholder..."}</Text>
         <View style={{ flex: 1 }}>
-          <Button title="This is a button" />
+          <Button
+            onPress={() =>
+              setFlatListData((prev) => [
+                ...prev,
+                new Date().getSeconds().toString(),
+              ])
+            }
+            title="This is a button"
+          />
         </View>
       </View>
       {/* <View style={{ height: 500 }}>
@@ -53,7 +65,10 @@ export default function App() {
           </Text>
         </ScrollView>
       </View> */}
-      <DataList flatListData={flatListData} />
+      <DataList
+        flatListData={flatListData}
+        deleteCurrentElement={deleteCurrentElement}
+      />
       <StatusBar style="auto" />
     </View>
   );

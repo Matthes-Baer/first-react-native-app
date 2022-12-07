@@ -1,7 +1,10 @@
 import SingleListItem from "./SingeListItem";
 import { Text, View, FlatList } from "react-native";
 
-const DataList = (props: { flatListData: Array<string> }) => {
+const DataList = (props: {
+  flatListData: Array<string>;
+  deleteCurrentElement: Function;
+}) => {
   return (
     <View style={{ height: 500 }}>
       <FlatList
@@ -9,7 +12,11 @@ const DataList = (props: { flatListData: Array<string> }) => {
         renderItem={(itemData) => {
           return (
             <View>
-              <SingleListItem listItemData={itemData.item} />
+              <SingleListItem
+                listItemData={itemData.item}
+                listItemIdx={itemData.index}
+                deleteCurrentElement={props.deleteCurrentElement}
+              />
             </View>
           );
         }}
