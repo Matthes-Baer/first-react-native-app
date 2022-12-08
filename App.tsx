@@ -71,7 +71,9 @@ export default function App() {
         deleteCurrentElement={deleteCurrentElement}
       />
       <Modal />
-      <StatusBar style="auto" />
+      <StatusBar // with the style one can adjust the color for the status bar (adjusting to dark oder light background)
+        style="auto"
+      />
     </View>
   );
 }
