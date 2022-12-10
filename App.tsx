@@ -8,6 +8,8 @@ import {
   TextInput,
   ScrollView,
   FlatList,
+  ImageBackground, // access to implement an image -> https://reactnative.dev/docs/imagebackground
+  Alert, // access to .alert -> https://reactnative.dev/docs/alert
 } from "react-native";
 import DataList from "./components/DataList";
 import Modal from "./components/Modal";
@@ -71,7 +73,7 @@ export default function App() {
         deleteCurrentElement={deleteCurrentElement}
       />
       <Modal />
-      <StatusBar // with the style one can adjust the color for the status bar (adjusting to dark oder light background)
+      <StatusBar // with the style one can adjust the color for the status bar (adjusting to dark or light background)
         style="auto"
       />
     </View>

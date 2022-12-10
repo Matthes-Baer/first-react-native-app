@@ -13,7 +13,9 @@ const SingleListItem = (props: {
         // android-ripple only affects android devices.
         android_ripple={{ color: "red" }}
         // this styling function affects BOTH android and iOS devices
-        style={(pressedData) => pressedData.pressed && styles.iOSPressedEffect}
+        style={(pressedData) =>
+          pressedData.pressed && [styles.iOSPressedEffect]
+        }
       >
         <Text style={styles.text}>{props.listItemData}</Text>
       </Pressable>
