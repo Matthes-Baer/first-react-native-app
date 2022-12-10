@@ -9,20 +9,31 @@ import {
   FlatList,
   Modal,
   Image,
+  Alert,
 } from "react-native";
 
 const ModalComponent = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
+  const openModal = () => {
+    Alert.alert("Modal opened", "You have opened a modal", [
+      {
+        onPress: () =>
+          console.log(
+            "this function was executed when the modal was opened and the Alert was dismissed."
+          ),
+      },
+    ]);
+    setModalOpen((prev) => !prev);
+  };
+
   return (
     <View>
-      <Button
-        onPress={() => setModalOpen((prev) => !prev)}
-        title="Open Modal"
-      />
+      <Button onPress={openModal} title="Open Modal" />
+
       <Modal
-        // In theory, conditionally rendering with the useState hook as done in web dev applications would also work.
-        // However, embracing the in-built Modal element can provide a smoother user experience.
+        //! In theory, conditionally rendering with the useState hook as done in web dev applications would also work.
+        //! However, embracing the in-built Modal component can provide a smoother user experience.
         visible={modalOpen}
         animationType="slide"
       >
@@ -32,6 +43,7 @@ const ModalComponent = () => {
               textAlign: "center",
               fontSize: 35,
               marginVertical: 35,
+              fontFamily: "Press-Start",
             }}
           >
             The Modal was opened!

@@ -10,9 +10,17 @@ import {
   FlatList,
   ImageBackground, // access to implement an image -> https://reactnative.dev/docs/imagebackground
   Alert, // access to .alert -> https://reactnative.dev/docs/alert
+  SafeAreaView, // provides a View that respects the top part of different phones where you can't place any content -> https://reactnative.dev/docs/safeareaview
 } from "react-native";
 import DataList from "./components/DataList";
 import Modal from "./components/Modal";
+
+//! The following 4 lines are reqzured to properly introduce a custom hook to the application.
+//! The custom fonts can be used throughout the whole application.
+import { useCallback } from "react";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [text, setText] = useState<string>("");
@@ -25,8 +33,23 @@ export default function App() {
     setFlatListData((prev) => prev.filter((e: string, i: number) => i != idx));
   };
 
+  //! The following lines are used to load the custom font and show a loading screen while the font is not yet loaded.
+  const [fontsLoaded] = useFonts({
+    "Press-Start": require("./assets/fonts/PressStart2P-Regular.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <View
         style={{
           flexDirection: "row",
@@ -35,7 +58,9 @@ export default function App() {
         }}
       >
         <TextInput style={styles.input} onChangeText={setText} value={text} />
-        <Text style={{ flex: 1 }}>{text ? text : "placeholder..."}</Text>
+        <Text style={{ flex: 1, fontFamily: "Press-Start" }}>
+          {text ? text : "placeholder..."}
+        </Text>
         <View style={{ flex: 1 }}>
           <Button
             onPress={() =>

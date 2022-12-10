@@ -27,6 +27,7 @@ export default SingleListItem;
 
 const styles = StyleSheet.create({
   text: {
+    fontFamily: "Press-Start",
     backgroundColor: "#252525",
     fontSize: 30,
     color: "white",
