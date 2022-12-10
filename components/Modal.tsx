@@ -16,14 +16,36 @@ const ModalComponent = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const openModal = () => {
-    Alert.alert("Modal opened", "You have opened a modal", [
+    Alert.alert(
+      "Modal opened",
+      "You have opened a modal.",
+      [
+        {
+          text: "Close",
+          onPress: () =>
+            console.log(
+              "This function was executed when the modal was opened and the Alert was dismissed by 'Close'."
+            ),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () =>
+            console.log(
+              "This function was executed when the modal was opened and the Alert was dismissed by 'OK'."
+            ),
+          style: "destructive",
+        },
+      ],
       {
-        onPress: () =>
-          console.log(
-            "this function was executed when the modal was opened and the Alert was dismissed."
-          ),
-      },
-    ]);
+        cancelable: true,
+        onDismiss() {
+          Alert.alert(
+            "This alert was dismissed by tapping outside of the alert dialog."
+          );
+        },
+      }
+    );
     setModalOpen((prev) => !prev);
   };
 
