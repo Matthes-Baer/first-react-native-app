@@ -21,8 +21,8 @@ const DataList = (props: {
           );
         }}
         keyExtractor={(item, index) => {
-          // should just be implemented in the state (item) which would be structured as an object with "key" - then this function would not be needed.
-          // Or use "id", for example and return that in this function.
+          // should only be implemented in the state (item) which would be structured as an object with "key" - then this function would not be needed.
+          // Or use "id", for example, and return that in this function.
           const keyValue = `${Math.random().toString()}&${index}`;
           return keyValue;
         }}

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,6 +15,7 @@ import {
 import DataList from "./components/DataList";
 import Modal from "./components/Modal";
 
+//! https://docs.expo.dev/guides/using-custom-fonts/
 //! The following 4 lines are reqzured to properly introduce a custom hook to the application.
 //! The custom fonts can be used throughout the whole application.
 import { useCallback } from "react";
@@ -34,6 +35,7 @@ export default function App() {
   };
 
   //! The following lines are used to load the custom font and show a loading screen while the font is not yet loaded.
+  //! The implemented font can be used throughout the whole application.
   const [fontsLoaded] = useFonts({
     "Press-Start": require("./assets/fonts/PressStart2P-Regular.ttf"),
   });
