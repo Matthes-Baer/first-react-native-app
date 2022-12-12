@@ -11,6 +11,8 @@ import {
   ImageBackground, // access to implement an image -> https://reactnative.dev/docs/imagebackground
   Alert, // access to .alert -> https://reactnative.dev/docs/alert
   SafeAreaView, // provides a View that respects the top part of different phones where you can't place any content -> https://reactnative.dev/docs/safeareaview
+  Dimensions, // with this one can access the screen/window size of the current device, for example (in iOS screen/width is identical, for android window is excluding the status bar)
+  useWindowDimensions, // This hook serves a similar purpose as the Dimensions API but can be used within a component so it get's rerendered when the user switches the device orientation without restarting the app.
 } from "react-native";
 import DataList from "./components/DataList";
 import Modal from "./components/Modal";
@@ -24,6 +26,11 @@ import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const { width, height } = useWindowDimensions();
+
+  const marginTop = height < 400 ? 10 : 50;
+  const padding = width < 380 ? 12 : 25;
+
   const [text, setText] = useState<string>("");
   const [flatListData, setFlatListData] = useState<Array<string>>([
     "This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text.",
@@ -51,7 +58,10 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
+    <View
+      style={[styles.container, { marginTop: marginTop }]}
+      onLayout={onLayoutRootView}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -77,7 +87,7 @@ export default function App() {
       </View>
       {/* <View style={{ height: 500 }}>
         <ScrollView>
-          <Text style={styles.flexItem}>Test?</Text>
+          <Text style={[styles.flexItem, {padding: padding}]}>Test?</Text>
           <Text style={styles.textStyle}>
             There are UI-wise differences for android and iOS. Some elements
             don't support a border-radius for both android and iOS, for example.
@@ -106,16 +116,16 @@ export default function App() {
     </View>
   );
 }
+//! Using the Dimensions API - however, this won't be calculated again if the user switches the devices orientation without restarting the app.
+// const deviceWidth = Dimensions.get("window").width;
+// const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     flexDirection: "column",
-    marginTop: 50,
   },
-  flexItem: {
-    padding: 25,
-  },
+  flexItem: {},
   input: {
     height: 40,
     margin: 12,

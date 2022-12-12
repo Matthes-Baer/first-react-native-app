@@ -1,12 +1,21 @@
 import SingleListItem from "./SingeListItem";
-import { Text, View, FlatList } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  Dimensions,
+  useWindowDimensions,
+} from "react-native";
 
 const DataList = (props: {
   flatListData: Array<string>;
   deleteCurrentElement: Function;
 }) => {
+  const windowDimensions = useWindowDimensions();
+  // const deviceHeight = Dimensions.get("window").height;
+
   return (
-    <View style={{ height: 500 }}>
+    <View style={{ height: windowDimensions.height / 2 }}>
       <FlatList
         data={props.flatListData}
         renderItem={(itemData) => {
