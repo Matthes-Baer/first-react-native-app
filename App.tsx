@@ -4,8 +4,9 @@ import { NavigationContainer } from "@react-navigation/native"; // This componen
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import SecondScreen from "./screens/SecondScreen";
+import type { StackParamList } from "./utils/ReactNavigationTypes";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (

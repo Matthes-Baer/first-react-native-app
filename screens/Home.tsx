@@ -31,7 +31,12 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
-export default function Home(props: { navigation }) {
+//? React Navigation TypeScript stuff
+import type { StackParamList } from "../utils/ReactNavigationTypes";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+type Props = NativeStackScreenProps<StackParamList, "Home">;
+
+export default function Home({ navigation }: Props) {
   //! The prop comes from the React navigation and the fact that this component is considered a screen component
 
   const { width, height } = useWindowDimensions();
@@ -125,7 +130,7 @@ export default function Home(props: { navigation }) {
       <Modal />
       <Button
         title="Go to SecondScreen"
-        onPress={() => props.navigation.navigate("SecondScreen")}
+        onPress={() => navigation.navigate("SecondScreen")}
       />
       <StatusBar // with the style one can adjust the color for the status bar (adjusting to dark or light background)
         style="auto"
