@@ -25,6 +25,11 @@ const ModalComponent = () => {
     borderRadius: windowDimensions.width < 380 ? 125 : 250,
   };
 
+  const orientationModalValues = {
+    width: windowDimensions.width < 380 ? "75%" : "50%",
+    height: windowDimensions.height < 380 ? "90%" : "70%",
+  };
+
   const openModal = () => {
     Alert.alert(
       "Modal opened",
@@ -107,4 +112,5 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginTop: 35,
   },
+  modalContainer: {},
 });
