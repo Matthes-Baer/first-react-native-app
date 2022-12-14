@@ -8,13 +8,11 @@ type Props = NativeStackScreenProps<StackParamList, "SecondScreen">;
 //! The useRoute hook provides the same functions having it as a prop for the screen component but can be used for non screen components.
 //? Therefore in this case it's irrelevant since this is a screen component.
 import { useNavigation, useRoute } from "@react-navigation/native";
-import type { CompositeNavigationProp } from "@react-navigation/native";
-import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import type { StackNavigationProp } from "@react-navigation/stack";
 
-type ProfileScreenNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<StackParamList, "SecondScreen">,
-  StackNavigationProp<StackParamList>
+type ProfileScreenNavigationProp = StackNavigationProp<
+  StackParamList,
+  "SecondScreen"
 >;
 
 export default function SecondScreen({ navigation, route }: Props) {
