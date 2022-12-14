@@ -95,6 +95,12 @@ const ModalComponent = () => {
               style={[styles.image, orientationWidthHeighBorderRadius]}
               source={require("../assets/images/example-image.png")}
             />
+            <Image
+              style={[styles.image, orientationWidthHeighBorderRadius]}
+              source={{
+                uri: "https://i.postimg.cc/PxzKLj3N/Edgerunner-Example-4.png",
+              }}
+            />
           </ScrollView>
         </View>
       </Modal>
