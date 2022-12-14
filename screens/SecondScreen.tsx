@@ -4,9 +4,10 @@ import type { StackParamList } from "../utils/ReactNavigationTypes";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 type Props = NativeStackScreenProps<StackParamList, "SecondScreen">;
 
-//! The useNavigation hook can be used when having to access the navigation method in a component that is not a screen component
+//! The useNavigation hook can be used when having to access the navigation method in a component that is not a screen component.
+//! The useRoute hook provides the same functions having it as a prop for the screen component but can be used for non screen components.
 //? Therefore in this case it's irrelevant since this is a screen component.
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import type { CompositeNavigationProp } from "@react-navigation/native";
 import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import type { StackNavigationProp } from "@react-navigation/stack";

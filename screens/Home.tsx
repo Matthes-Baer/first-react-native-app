@@ -142,7 +142,7 @@ export default function Home({ navigation }: Props) {
     </View>
   );
 }
-//! Using the Dimensions API - however, this won't be calculated again if the user switches the devices orientation without restarting the app.
+//! Using the Dimensions API - This won't be calculated again if the user switches the devices orientation without restarting the app, for example.
 // const deviceWidth = Dimensions.get("window").width;
 // const deviceHeight = Dimensions.get("window").height;
 
