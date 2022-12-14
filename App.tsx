@@ -16,7 +16,11 @@ export default function App() {
         <Stack.Navigator initialRouteName="Home">
           {/* These are considered screen components */}
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="SecondScreen" component={SecondScreen} />
+          <Stack.Screen
+            name="SecondScreen"
+            component={SecondScreen}
+            initialParams={{ testParam: "initialParam" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

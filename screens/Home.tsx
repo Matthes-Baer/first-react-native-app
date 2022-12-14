@@ -130,7 +130,11 @@ export default function Home({ navigation }: Props) {
       <Modal />
       <Button
         title="Go to SecondScreen"
-        onPress={() => navigation.navigate("SecondScreen")}
+        onPress={() =>
+          navigation.navigate("SecondScreen", {
+            testParam: "Test123",
+          })
+        }
       />
       <StatusBar // with the style one can adjust the color for the status bar (adjusting to dark or light background)
         style="auto"
