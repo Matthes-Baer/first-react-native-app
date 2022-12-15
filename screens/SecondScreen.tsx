@@ -3,7 +3,7 @@ import { useLayoutEffect } from "react";
 
 import type { StackParamList } from "../utils/ReactNavigationTypes";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-type Props = NativeStackScreenProps<StackParamList, "SecondScreen">;
+type Props = NativeStackScreenProps<StackParamList<string>, "SecondScreen">;
 
 //! The useNavigation hook can be used when having to access the navigation method in a component that is not a screen component.
 //! The useRoute hook provides the same functions as having it as a prop for the screen component but can be used for non screen components. Helpful for receiving the route props, for example.
@@ -11,14 +11,13 @@ type Props = NativeStackScreenProps<StackParamList, "SecondScreen">;
 import { useNavigation, useRoute } from "@react-navigation/native";
 import type { StackNavigationProp } from "@react-navigation/stack"; // for useNavigation hook
 import type { RouteProp } from "@react-navigation/native"; // for useRoute hook
-import { StatusBar } from "expo-status-bar";
 
 type SecondScreenNavigationProp = StackNavigationProp<
-  StackParamList,
+  StackParamList<string>,
   "SecondScreen"
 >;
 
-type SecondScreenRouteProp = RouteProp<StackParamList, "SecondScreen">;
+type SecondScreenRouteProp = RouteProp<StackParamList<string>, "SecondScreen">;
 
 export default function SecondScreen({ navigation, route }: Props) {
   const navigationHook = useNavigation<SecondScreenNavigationProp>();

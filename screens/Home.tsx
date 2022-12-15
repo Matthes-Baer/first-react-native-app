@@ -34,7 +34,7 @@ SplashScreen.preventAutoHideAsync();
 //? React Navigation TypeScript stuff
 import type { StackParamList } from "../utils/ReactNavigationTypes";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-type Props = NativeStackScreenProps<StackParamList, "Home">;
+type Props = NativeStackScreenProps<StackParamList<string>, "Home">;
 
 export default function Home({ navigation }: Props) {
   //! The prop comes from the React navigation and the fact that this component is considered a screen component
