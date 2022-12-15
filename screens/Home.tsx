@@ -137,7 +137,7 @@ export default function Home({ navigation }: Props) {
         }
       />
       <StatusBar // with the style one can adjust the color for the status bar (adjusting to dark or light background)
-        style="auto"
+        style="dark"
       />
     </View>
   );
