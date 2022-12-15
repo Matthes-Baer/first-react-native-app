@@ -7,8 +7,9 @@ import Home from "./screens/Home";
 import SecondScreen from "./screens/SecondScreen";
 import type { StackParamList } from "./utils/ReactNavigationTypes";
 
-const Stack = createNativeStackNavigator<StackParamList>();
+const Stack = createNativeStackNavigator<StackParamList<string>>();
 
+//? In this case I'm using stack/native stack for navigation. There are also drawers and tabs which serve navigation purposes -> https://reactnavigation.org/docs/drawer-navigator
 export default function App() {
   return (
     <>
