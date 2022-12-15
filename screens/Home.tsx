@@ -46,8 +46,8 @@ export default function Home({ navigation }: Props) {
 
   const [text, setText] = useState<string>("");
   const [flatListData, setFlatListData] = useState<Array<string>>([
-    "This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text.",
-    "This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text. This is a placeholder Text.",
+    "Placeholder",
+    "Placeholder",
   ]);
 
   const deleteCurrentElement = (idx: number) => {
