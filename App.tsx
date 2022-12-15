@@ -14,7 +14,15 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+          initialRouteName="Home"
+          // Default options for all screens/routes
+          screenOptions={{
+            headerStyle: { backgroundColor: "#6B8E23" },
+            contentStyle: { backgroundColor: "#778899" },
+            headerTintColor: "white",
+          }}
+        >
           {/* These are considered screen components */}
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen
@@ -23,10 +31,9 @@ export default function App() {
             initialParams={{ testParam: "initialParam" }}
             options={{
               headerLeft: () => <Text>Header Left</Text>,
+              //? The title was also adjusted dynamically in the route (which has priority over this option)
               title: "This is the Second Screen Route",
-              headerStyle: { backgroundColor: "#6B8E23" },
-              contentStyle: { backgroundColor: "#778899" },
-              headerTintColor: "white",
+              headerTintColor: "red",
             }}
           />
         </Stack.Navigator>

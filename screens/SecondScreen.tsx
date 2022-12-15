@@ -1,4 +1,5 @@
 import { View, Text, Button } from "react-native";
+import { useLayoutEffect } from "react";
 
 import type { StackParamList } from "../utils/ReactNavigationTypes";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -22,6 +23,12 @@ type SecondScreenRouteProp = RouteProp<StackParamList, "SecondScreen">;
 export default function SecondScreen({ navigation, route }: Props) {
   const navigationHook = useNavigation<SecondScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
+
+  //? useLayoutEffect serves the purpose to simultaneously render the stuff in there (useEffect renders it after the component itself rendered which can cause ugly loading)
+  useLayoutEffect(() => {
+    navigation.setOptions({ title: route.params?.testParam });
+  }, []);
+
   return (
     <View>
       <Text>Second Screen Text</Text>
