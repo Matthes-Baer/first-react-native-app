@@ -10,13 +10,13 @@ type Props = NativeStackScreenProps<StackParamList, "SecondScreen">;
 import { useNavigation, useRoute } from "@react-navigation/native";
 import type { StackNavigationProp } from "@react-navigation/stack";
 
-type ProfileScreenNavigationProp = StackNavigationProp<
+type SecondScreenNavigationProp = StackNavigationProp<
   StackParamList,
   "SecondScreen"
 >;
 
 export default function SecondScreen({ navigation, route }: Props) {
-  const navigationHook = useNavigation<ProfileScreenNavigationProp>();
+  const navigationHook = useNavigation<SecondScreenNavigationProp>();
   return (
     <View>
       <Text>Second Screen Text</Text>
