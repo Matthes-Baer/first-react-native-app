@@ -43,6 +43,10 @@ export default function SecondScreen({ navigation, route }: Props) {
         {route.params?.testParam} - This is data passed via initialParams OR via
         param from the navigation method (route object)
       </Text>
+      <Button
+        title="Go to FirstNested Screen"
+        onPress={() => navigation.navigate("NestedNavigationScreen")}
+      />
     </View>
   );
 }
