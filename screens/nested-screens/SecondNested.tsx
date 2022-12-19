@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 
+//? TypeScript stuff for React Navigation
 import type { NestedStackParamList } from "../../utils/ReactNavigationTypes";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 type Props = NativeStackScreenProps<NestedStackParamList, "SecondNested">;

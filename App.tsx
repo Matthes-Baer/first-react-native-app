@@ -16,8 +16,8 @@ import type { NestedStackParamList } from "./utils/ReactNavigationTypes";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { AntDesign } from "@expo/vector-icons";
 
-const Stack = createNativeStackNavigator<StackParamList<string>>();
 const TopTabs = createMaterialTopTabNavigator<NestedStackParamList>();
+const Stack = createNativeStackNavigator<StackParamList<string>>();
 
 //? This is a React Component for the nested navigation structure - it includes the screens which should be nested; itself it gets used as component for a screen of the parent navigation system
 const TopTabsComponent = () => {
