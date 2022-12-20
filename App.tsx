@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Text } from "react-native";
+import { Text, View, Button } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native"; // This component is used to wrap the whole application
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -14,6 +14,7 @@ import type { StackParamList } from "./utils/ReactNavigationTypes";
 import type { NestedStackParamList } from "./utils/ReactNavigationTypes";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+//? This is basically a singular import from the expo icons
 import { AntDesign } from "@expo/vector-icons";
 
 const TopTabs = createMaterialTopTabNavigator<NestedStackParamList>();
@@ -54,11 +55,21 @@ export default function App() {
         <Stack.Navigator
           initialRouteName="Home"
           // Default options for all screens/routes
-          screenOptions={{
+          screenOptions={({ navigation }) => ({
             headerStyle: { backgroundColor: "#6B8E23" },
             contentStyle: { backgroundColor: "#778899" },
-            headerTintColor: "white",
-          }}
+            headerTintColor: "brown",
+            headerRight: ({ tintColor }) => (
+              <View>
+                <Text style={{ color: tintColor }}>Test</Text>
+                <Button
+                  color={tintColor}
+                  onPress={() => navigation.navigate("NestedNavigationScreen")}
+                  title="To Nested"
+                />
+              </View>
+            ),
+          })}
         >
           {/* These are considered screen components */}
           <Stack.Screen name="Home" component={Home} />
