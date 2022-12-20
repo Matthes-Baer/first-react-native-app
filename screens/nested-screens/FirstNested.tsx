@@ -1,5 +1,5 @@
 import { View, Text, Button } from "react-native";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import type { NestedStackParamList } from "../../utils/ReactNavigationTypes";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -19,13 +19,44 @@ type FirstNestedScreenNavigationProp = StackNavigationProp<
 
 type SecondScreenRouteProp = RouteProp<NestedStackParamList, "FirstNested">;
 
+import { addToDatabase, readAllDataFromDatabase } from "../../utils/http";
+import { FlatList } from "react-native-gesture-handler";
+
 export default function SecondScreen({ navigation, route }: Props) {
+  const [fetchData, setFetchData] = useState<
+    Array<{ id: string; name: string }>
+  >([]);
   const navigationHook = useNavigation<FirstNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
+
+  useEffect(() => {
+    async function fetchFunction() {
+      setFetchData(await readAllDataFromDatabase());
+    }
+    fetchFunction();
+  }, []);
 
   return (
     <View>
       <Text>Second Screen Text</Text>
+      {fetchData && (
+        <FlatList
+          data={fetchData}
+          renderItem={(itemdata) => (
+            <View>
+              <Text>{itemdata.item.name}</Text>
+            </View>
+          )}
+          keyExtractor={(item: { id: string; name: string }, index: number) => {
+            return item.id;
+          }}
+        />
+      )}
+
+      <Button
+        title="send Data to Database"
+        onPress={() => addToDatabase({ name: "TestName" })}
+      />
     </View>
   );
 }
