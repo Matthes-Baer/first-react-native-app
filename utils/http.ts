@@ -27,6 +27,8 @@ export const readAllDataFromDatabase = async () => {
       }
     );
     const result = await response.json();
+
+    //? Logic to convert the firebase result (which consists of multiple objects) to an array for the frontend.
     const responseArray = [];
     for (let key in result) {
       const input = {

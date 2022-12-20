@@ -26,6 +26,7 @@ export default function SecondScreen({ navigation, route }: Props) {
   const [fetchData, setFetchData] = useState<
     Array<{ id: string; name: string }>
   >([]);
+
   const navigationHook = useNavigation<FirstNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
 
@@ -39,6 +40,7 @@ export default function SecondScreen({ navigation, route }: Props) {
   return (
     <View>
       <Text>Second Screen Text</Text>
+      {/* //? The following segment is used to render the fetched data onto the screen. */}
       {fetchData && (
         <FlatList
           data={fetchData}
