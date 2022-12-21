@@ -19,7 +19,12 @@ type FirstNestedScreenNavigationProp = StackNavigationProp<
 
 type SecondScreenRouteProp = RouteProp<NestedStackParamList, "FirstNested">;
 
-import { addToDatabase, readAllDataFromDatabase } from "../../utils/http";
+import {
+  addToDatabase,
+  readAllDataFromDatabase,
+  updateDataFromDatabase,
+  deleteDataFromDatabase,
+} from "../../utils/http";
 import { FlatList } from "react-native-gesture-handler";
 
 export default function SecondScreen({ navigation, route }: Props) {
@@ -30,12 +35,26 @@ export default function SecondScreen({ navigation, route }: Props) {
   const navigationHook = useNavigation<FirstNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
 
+  async function fetchDBData() {
+    setFetchData(await readAllDataFromDatabase());
+  }
+
   useEffect(() => {
-    async function fetchFunction() {
-      setFetchData(await readAllDataFromDatabase());
-    }
-    fetchFunction();
+    fetchDBData();
   }, []);
+
+  const handleDBActions = (action: string, id?: string) => {
+    if (action == "UPDATE") {
+      updateDataFromDatabase(id);
+    } else if (action == "DELETE") {
+      deleteDataFromDatabase(id);
+    } else if (action == "ADD") {
+      addToDatabase({ itemName: "TestName" });
+    } else {
+      return;
+    }
+    fetchDBData();
+  };
 
   return (
     <View>
@@ -49,6 +68,14 @@ export default function SecondScreen({ navigation, route }: Props) {
               <Text>
                 {itemdata.item.name ? itemdata.item.name : "no name included"}
               </Text>
+              <Button
+                title="update this"
+                onPress={() => handleDBActions("UPDATE", itemdata.item.id)}
+              />
+              <Button
+                title="delete this"
+                onPress={() => handleDBActions("DELETE", itemdata.item.id)}
+              />
             </View>
           )}
           keyExtractor={(item: { id: string; name: string }, index: number) => {
@@ -59,7 +86,7 @@ export default function SecondScreen({ navigation, route }: Props) {
 
       <Button
         title="send Data to Database"
-        onPress={() => addToDatabase({ itemName: "TestName" })}
+        onPress={() => handleDBActions("ADD")}
       />
     </View>
   );
