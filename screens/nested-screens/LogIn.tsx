@@ -1,4 +1,5 @@
 import { View, Text, Button } from "react-native";
+import { useEffect, useState } from "react";
 
 //? TypeScript stuff for React Navigation
 import type { NestedStackParamList } from "../../utils/ReactNavigationTypes";
@@ -26,12 +27,39 @@ export default function SecondScreen({ navigation, route }: Props) {
   const navigationHook = useNavigation<SecondNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
 
+  const [error, setError] = useState<boolean>(false);
+
   const createUserHandler = async () => {
-    await createUser({ email: "Test2@gmx.de", password: "1234567" });
+    setError(false);
+    try {
+      const response = await createUser({
+        email: "Test3@gmx.de",
+        password: "1234567",
+      });
+      const result = await response;
+      if (!result.idToken) {
+        throw new Error();
+      }
+    } catch (error) {
+      setError(true);
+    }
   };
 
   const signInUserHandler = async () => {
-    await signInUser({ email: "Test2@gmx.de", password: "1234567" });
+    setError(false);
+    try {
+      const response = await signInUser({
+        email: "Test2@gmx.de",
+        password: "1234567",
+      });
+      const result = await response;
+      if (!result.idToken) {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+      setError(true);
+    }
   };
 
   return (
@@ -39,6 +67,7 @@ export default function SecondScreen({ navigation, route }: Props) {
       <Text>Log in page</Text>
       <Button title="create User" onPress={createUserHandler} />
       <Button title="sign in User" onPress={signInUserHandler} />
+      <Text>{error && "Error at handling request"}</Text>
     </View>
   );
 }

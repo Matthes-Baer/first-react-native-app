@@ -18,7 +18,7 @@ export const createUser = async ({
         body: JSON.stringify({ email, password, returnSecureToken: true }),
       }
     );
-    console.log(await response.json());
+    return await response.json();
   } catch (error) {
     console.log(error);
   }
@@ -41,7 +41,7 @@ export const signInUser = async ({
         body: JSON.stringify({ email, password, returnSecureToken: true }),
       }
     );
-    console.log(await response.json());
+    return await response.json();
   } catch (error) {
     console.log(error);
   }
