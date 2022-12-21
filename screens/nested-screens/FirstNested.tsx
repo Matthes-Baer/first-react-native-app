@@ -46,7 +46,9 @@ export default function SecondScreen({ navigation, route }: Props) {
           data={fetchData}
           renderItem={(itemdata) => (
             <View>
-              <Text>{itemdata.item.name}</Text>
+              <Text>
+                {itemdata.item.name ? itemdata.item.name : "no name included"}
+              </Text>
             </View>
           )}
           keyExtractor={(item: { id: string; name: string }, index: number) => {
@@ -57,7 +59,7 @@ export default function SecondScreen({ navigation, route }: Props) {
 
       <Button
         title="send Data to Database"
-        onPress={() => addToDatabase({ name: "TestName" })}
+        onPress={() => addToDatabase({ itemName: "TestName" })}
       />
     </View>
   );

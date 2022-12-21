@@ -1,7 +1,7 @@
 //! These are helper functions to access the firebase REST API
 
 //? Post request to add some data to the "testData" segment.
-export const addToDatabase = async (inputBody: { name: string }) => {
+export const addToDatabase = async (inputBody: { itemName: string }) => {
   try {
     const response = await fetch(
       "https://react-native-project-4a7af-default-rtdb.europe-west1.firebasedatabase.app/testData.json",
@@ -11,6 +11,9 @@ export const addToDatabase = async (inputBody: { name: string }) => {
         body: JSON.stringify(inputBody),
       }
     );
+    const result = await response.json();
+    //? "name" is the key for the id that get's created for the respective item created in the firebase database segment.
+    console.log(result.name);
   } catch (error) {
     console.log(error);
   }
