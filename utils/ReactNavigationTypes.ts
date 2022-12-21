@@ -11,4 +11,5 @@ export type StackParamList<T> = {
 export type NestedStackParamList = {
   FirstNested: undefined;
   SecondNested: undefined;
+  LogIn: undefined;
 };
