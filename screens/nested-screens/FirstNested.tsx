@@ -26,30 +26,36 @@ import {
   deleteDataFromDatabase,
 } from "../../utils/http";
 import { FlatList } from "react-native-gesture-handler";
+import Loading from "../../components/UI/Loading";
 
 export default function SecondScreen({ navigation, route }: Props) {
-  const [fetchData, setFetchData] = useState<
-    Array<{ id: string; name: string }>
-  >([]);
+  const [fetchData, setFetchData] =
+    useState<Array<{ id: string; name: string }>>();
 
   const navigationHook = useNavigation<FirstNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
 
   async function fetchDBData() {
-    setFetchData(await readAllDataFromDatabase());
+    try {
+      setFetchData(await readAllDataFromDatabase());
+    } catch (error) {
+      //? This is where some additional logic should be added to render an error overlay for the user, for example.
+      console.log(error);
+    }
   }
 
   useEffect(() => {
+    // setTimeout(fetchDBData, 2000); -> used for making the Loading screen more visible while working on it.
     fetchDBData();
   }, []);
 
-  const handleDBActions = (action: string, id?: string) => {
+  const handleDBActions = async (action: string, id?: string) => {
     if (action == "UPDATE") {
-      updateDataFromDatabase(id);
+      await updateDataFromDatabase(id);
     } else if (action == "DELETE") {
-      deleteDataFromDatabase(id);
+      await deleteDataFromDatabase(id);
     } else if (action == "ADD") {
-      addToDatabase({ itemName: "TestName" });
+      await addToDatabase({ itemName: "TestName" });
     } else {
       return;
     }
@@ -60,7 +66,7 @@ export default function SecondScreen({ navigation, route }: Props) {
     <View>
       <Text>Second Screen Text</Text>
       {/* //? The following segment is used to render the fetched data onto the screen. */}
-      {fetchData && (
+      {fetchData ? (
         <FlatList
           data={fetchData}
           renderItem={(itemdata) => (
@@ -82,6 +88,8 @@ export default function SecondScreen({ navigation, route }: Props) {
             return item.id;
           }}
         />
+      ) : (
+        <Loading />
       )}
 
       <Button

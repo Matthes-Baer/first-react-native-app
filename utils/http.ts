@@ -1,4 +1,5 @@
 //! These are helper functions to access the firebase REST API
+//? An error overlay should also be used, for example, in order to render a messsage that something went wrong (169 in React Native Udemy course).
 
 const BACKEND_URL =
   "https://react-native-project-4a7af-default-rtdb.europe-west1.firebasedatabase.app";
@@ -11,9 +12,9 @@ export const addToDatabase = async (inputBody: { itemName: string }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(inputBody),
     });
-    const result = await response.json();
+    // const result = await response.json();
     //? "name" is the key for the id that get's created for the respective item created in the firebase database segment.
-    console.log(result.name);
+    //? console.log(result.name);
   } catch (error) {
     console.log(error);
   }
@@ -51,7 +52,7 @@ export const updateDataFromDatabase = async (id: string) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: "adjustedName" }),
     });
-    console.log(await response.json());
+    // console.log(await response.json());
   } catch (error) {
     console.log(error);
   }
@@ -64,7 +65,7 @@ export const deleteDataFromDatabase = async (id: string) => {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
-    console.log(await response.json());
+    // console.log(await response.json());
   } catch (error) {
     console.log(error);
   }
