@@ -19,7 +19,7 @@ type SecondNestedScreenNavigationProp = StackNavigationProp<
 
 type SecondScreenRouteProp = RouteProp<NestedStackParamList, "LogIn">;
 
-import { createUser } from "../../utils/auth";
+import { createUser, signInUser } from "../../utils/auth";
 
 export default function SecondScreen({ navigation, route }: Props) {
   //! Hooks are used to access the corresponding methods outside of screen components - in this case such hooks are therefore not necessary.
@@ -27,13 +27,18 @@ export default function SecondScreen({ navigation, route }: Props) {
   const routeHook = useRoute<SecondScreenRouteProp>();
 
   const createUserHandler = async () => {
-    await createUser({ email: "Test@gmx.de", password: "123" });
+    await createUser({ email: "Test2@gmx.de", password: "1234567" });
+  };
+
+  const signInUserHandler = async () => {
+    await signInUser({ email: "Test2@gmx.de", password: "1234567" });
   };
 
   return (
     <View>
       <Text>Log in page</Text>
       <Button title="create User" onPress={createUserHandler} />
+      <Button title="sign in User" onPress={signInUserHandler} />
     </View>
   );
 }
