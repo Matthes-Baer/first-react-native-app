@@ -28,6 +28,8 @@ import {
 import { FlatList } from "react-native-gesture-handler";
 import Loading from "../../components/UI/Loading";
 
+import { createUser, signInUser } from "../../utils/auth";
+
 export default function SecondScreen({ navigation, route }: Props) {
   const [fetchData, setFetchData] =
     useState<Array<{ id: string; name: string }>>();
@@ -35,9 +37,28 @@ export default function SecondScreen({ navigation, route }: Props) {
   const navigationHook = useNavigation<FirstNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
 
+  //? Hier auch noch einmal LogIn-Funktion eingefügt, um es schnell ohne übergreifenden State testen zu können.
+  //? In echt sollte man useContext oder Redux nutzen, um überall den gleichen Token-State zu haben.
+  const [authToken, setAuthToken] = useState<string | undefined>();
+  const signInUserHandler = async () => {
+    try {
+      const response = await signInUser({
+        email: "Test2@gmx.de",
+        password: "1234567",
+      });
+      const result = await response;
+      if (!result.idToken) {
+        throw new Error();
+      } else {
+        setAuthToken(result.idToken);
+        console.log(authToken);
+      }
+    } catch (error) {}
+  };
+
   async function fetchDBData() {
     try {
-      setFetchData(await readAllDataFromDatabase());
+      setFetchData(await readAllDataFromDatabase(authToken));
     } catch (error) {
       //? This is where some additional logic should be added to render an error overlay for the user, for example.
       console.log(error);
@@ -51,11 +72,11 @@ export default function SecondScreen({ navigation, route }: Props) {
 
   const handleDBActions = async (action: string, id?: string) => {
     if (action == "UPDATE") {
-      await updateDataFromDatabase(id);
+      await updateDataFromDatabase(id, authToken);
     } else if (action == "DELETE") {
-      await deleteDataFromDatabase(id);
+      await deleteDataFromDatabase(id, authToken);
     } else if (action == "ADD") {
-      await addToDatabase({ itemName: "TestName" });
+      await addToDatabase({ itemName: "TestName" }, authToken);
     } else {
       return;
     }
@@ -64,6 +85,7 @@ export default function SecondScreen({ navigation, route }: Props) {
 
   return (
     <View>
+      <Button title="Login" onPress={signInUserHandler} />
       <Text>Second Screen Text</Text>
       {/* //? The following segment is used to render the fetched data onto the screen. */}
       {fetchData ? (
