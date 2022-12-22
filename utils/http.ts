@@ -1,3 +1,5 @@
+//? Hiermit wird dafür gesorgt, dass authenticated (siehe auth.ts file) Nutzer Zugriff auf die realtime database haben, um Inhalte anzupassen (bzgl. der Rechte/Regeln muss das in der firebase database eingestellt werden).
+
 //! These are helper functions to access the firebase REST API
 //? An error overlay should also be used, for example, in order to render a messsage that something went wrong (169 in React Native Udemy course).
 

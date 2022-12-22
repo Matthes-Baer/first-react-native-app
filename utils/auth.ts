@@ -1,3 +1,5 @@
+//? Hiermit wird dafür gesorgt, dass Nutzer Zugriff auf die database haben bzw. Zugriff auf geschützte Inhalte haben und sich auch ausloggen können.
+
 //! This is important to make it work in TypeScript
 const FIREBASE_KEY: string = process.env.FIREBASE_KEY as string;
 
