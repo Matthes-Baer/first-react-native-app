@@ -60,6 +60,7 @@ export default function Home({ navigation }: Props) {
     "Press-Start": require("../assets/fonts/PressStart2P-Regular.ttf"),
   });
 
+  //! SplashScreen should also be used for the AsyncStorage logic for token (to load the App initially to check if a token is available) - should be done a the top of all navigators
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
