@@ -41,13 +41,13 @@ export const readAllDataFromDatabase = async (authToken: string) => {
       }
     );
     const result = await response.json();
-
+    console.log(result);
     //? Logic to convert the firebase result (which consists of multiple objects) to an array for the frontend.
     const responseArray = [];
     for (let key in result) {
       const input = {
         id: key,
-        name: result[key].name,
+        itemName: result[key].itemName,
       };
       responseArray.push(input);
     }
@@ -66,7 +66,7 @@ export const updateDataFromDatabase = async (id: string, authToken: string) => {
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "adjustedName" }),
+        body: JSON.stringify({ itemName: "adjustedName" }),
       }
     );
     // console.log(await response.json());

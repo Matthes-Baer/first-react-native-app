@@ -33,12 +33,13 @@ import { createUser, signInUser } from "../../utils/auth";
 
 export default function SecondScreen({ navigation, route }: Props) {
   const [fetchData, setFetchData] =
-    useState<Array<{ id: string; name: string }>>();
+    useState<Array<{ id: string; itemName: string }>>();
 
   const navigationHook = useNavigation<FirstNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
 
   //? Using the AsyncStorage to get the token that was received after logging in (if there is one).
+  //! The token logic is lacking a refresh logic or automatically logging out since the token will be denied after 1 hour (in case of firebase -> SDK would be the proper approach)
   useEffect(() => {
     async function fetchToken() {
       const token = await AsyncStorage.getItem("token");
@@ -112,7 +113,9 @@ export default function SecondScreen({ navigation, route }: Props) {
           renderItem={(itemdata) => (
             <View>
               <Text>
-                {itemdata.item.name ? itemdata.item.name : "no name included"}
+                {itemdata.item.itemName
+                  ? itemdata.item.itemName
+                  : "no name included"}
               </Text>
               <Button
                 title="update this"
@@ -124,7 +127,10 @@ export default function SecondScreen({ navigation, route }: Props) {
               />
             </View>
           )}
-          keyExtractor={(item: { id: string; name: string }, index: number) => {
+          keyExtractor={(
+            item: { id: string; itemName: string },
+            index: number
+          ) => {
             return item.id;
           }}
         />
