@@ -27,10 +27,18 @@ export default function SecondScreen({ navigation, route }: Props) {
   const navigationHook = useNavigation<SecondNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
 
-  const [error, setError] = useState<boolean>(false);
+  const [fetchError, setFetchError] = useState<{
+    errorBol: boolean;
+    message: string;
+  }>({
+    errorBol: false,
+    message: "",
+  });
+  //? One could create different Navigators (one for authenticated users and one for non-authenticated users) depending on if a token is available or not.
+  const [authToken, setAuthToken] = useState<string | undefined>();
 
   const createUserHandler = async () => {
-    setError(false);
+    setFetchError({ errorBol: false, message: "" });
     try {
       const response = await createUser({
         email: "Test3@gmx.de",
@@ -38,15 +46,22 @@ export default function SecondScreen({ navigation, route }: Props) {
       });
       const result = await response;
       if (!result.idToken) {
-        throw new Error();
+        //? This could be added for other specific error cases (wrong password, ... etc.)
+        if (result.error.errors[0].message == "EMAIL_EXISTS") {
+          throw new Error("Email is already existing.");
+        } else {
+          throw new Error("Error not specified.");
+        }
+      } else {
+        setAuthToken(result.idToken);
       }
     } catch (error) {
-      setError(true);
+      setFetchError({ errorBol: true, message: `${error}` });
     }
   };
 
   const signInUserHandler = async () => {
-    setError(false);
+    setFetchError({ errorBol: false, message: "" });
     try {
       const response = await signInUser({
         email: "Test2@gmx.de",
@@ -55,10 +70,11 @@ export default function SecondScreen({ navigation, route }: Props) {
       const result = await response;
       if (!result.idToken) {
         throw new Error();
+      } else {
+        setAuthToken(result.idToken);
       }
     } catch (error) {
-      console.log(error);
-      setError(true);
+      setFetchError({ errorBol: true, message: `${error}` });
     }
   };
 
@@ -67,7 +83,9 @@ export default function SecondScreen({ navigation, route }: Props) {
       <Text>Log in page</Text>
       <Button title="create User" onPress={createUserHandler} />
       <Button title="sign in User" onPress={signInUserHandler} />
-      <Text>{error && "Error at handling request"}</Text>
+      <Text>{fetchError.errorBol && fetchError.message}</Text>
+      <Text>token: {authToken ? authToken : "no token"} </Text>
+      <Button title="Logout" onPress={() => setAuthToken(undefined)} />
     </View>
   );
 }
