@@ -1,5 +1,6 @@
 import { View, Text, Button } from "react-native";
 import { useEffect, useLayoutEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"; // This is used to access data the entire time even if the app was closed
 
 import type { NestedStackParamList } from "../../utils/ReactNavigationTypes";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -37,6 +38,17 @@ export default function SecondScreen({ navigation, route }: Props) {
   const navigationHook = useNavigation<FirstNestedScreenNavigationProp>();
   const routeHook = useRoute<SecondScreenRouteProp>();
 
+  //? Using the AsyncStorage to get the token that was received after logging in (if there is one).
+  useEffect(() => {
+    async function fetchToken() {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        setAuthToken(token);
+      }
+    }
+    fetchToken();
+  }, []);
+
   //? Hier auch noch einmal LogIn-Funktion eingefügt, um es schnell ohne übergreifenden State testen zu können.
   //? In echt sollte man useContext oder Redux nutzen, um überall den gleichen Token-State zu haben.
   const [authToken, setAuthToken] = useState<string | undefined>();
@@ -51,9 +63,14 @@ export default function SecondScreen({ navigation, route }: Props) {
         throw new Error();
       } else {
         setAuthToken(result.idToken);
-        console.log(authToken);
+        AsyncStorage.setItem("token", result.idToken);
       }
     } catch (error) {}
+  };
+
+  const logoutHandler = async () => {
+    setAuthToken(undefined);
+    await AsyncStorage.removeItem("token");
   };
 
   async function fetchDBData() {
@@ -86,6 +103,7 @@ export default function SecondScreen({ navigation, route }: Props) {
   return (
     <View>
       <Button title="Login" onPress={signInUserHandler} />
+      <Button title="Logout" onPress={logoutHandler} />
       <Text>Second Screen Text</Text>
       {/* //? The following segment is used to render the fetched data onto the screen. */}
       {fetchData ? (
