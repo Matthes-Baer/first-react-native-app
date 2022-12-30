@@ -11,6 +11,7 @@ type Props = NativeStackScreenProps<NestedStackParamList, "SecondNested">;
 import { useNavigation, useRoute } from "@react-navigation/native";
 import type { StackNavigationProp } from "@react-navigation/stack"; // for useNavigation hook
 import type { RouteProp } from "@react-navigation/native"; // for useRoute hook
+import ImagePicker from "../../components/ImagePicker";
 
 type SecondNestedScreenNavigationProp = StackNavigationProp<
   NestedStackParamList,
@@ -27,6 +28,7 @@ export default function SecondScreen({ navigation, route }: Props) {
   return (
     <View>
       <Text>Second Screen Text</Text>
+      <ImagePicker />
     </View>
   );
 }
