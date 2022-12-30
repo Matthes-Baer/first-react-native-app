@@ -30,7 +30,8 @@
     "react-native-screens": "~3.18.0",
     "react-native-tab-view": "^3.3.4",
     "typescript": "^4.6.3",
-    "expo-image-picker": "~14.0.2"
+    "expo-image-picker": "~14.0.2",
+    "expo-location": "~15.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
