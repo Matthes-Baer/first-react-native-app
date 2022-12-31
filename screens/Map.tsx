@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useState } from "react";
 
@@ -26,6 +26,13 @@ const Map = ({ navigation, route }: Props) => {
 
     setSelectedLocation({ lat, lng });
   };
+
+  //   const savePickedLocationHandler = () => {
+  //     if (!selectedLocation) {
+  //       Alert.alert("No location picked!");
+  //       return;
+  //     }
+  //   };
 
   return (
     <View>

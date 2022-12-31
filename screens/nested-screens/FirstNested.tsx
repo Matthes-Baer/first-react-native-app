@@ -9,7 +9,11 @@ type Props = NativeStackScreenProps<NestedStackParamList, "FirstNested">;
 //! The useNavigation hook can be used when having to access the navigation method in a component that is not a screen component.
 //! The useRoute hook provides the same functions as having it as a prop for the screen component but can be used for non screen components. Helpful for receiving the route props, for example.
 //? Therefore in this case it's irrelevant since this is a screen component.
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from "@react-navigation/native"; //? useIsFocused is helpful when trying to make changes to a screen after it got created (for example when adding different params to the screen) - within a useEffect it will return true or false depending on if the screen is currently selected or not
 import type { StackNavigationProp } from "@react-navigation/stack"; // for useNavigation hook
 import type { RouteProp } from "@react-navigation/native"; // for useRoute hook
 
