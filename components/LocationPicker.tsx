@@ -1,12 +1,22 @@
-import { View, Button, Alert } from "react-native";
+import { View, Button, Alert, Text } from "react-native";
 import {
   getCurrentPositionAsync,
   useForegroundPermissions,
   PermissionStatus,
 } from "expo-location";
+import { useState } from "react";
+
+import { useNavigation, useRoute } from "@react-navigation/native";
+import type { StackNavigationProp } from "@react-navigation/stack"; // for useNavigation hook
+import type { NestedStackParamList } from "../utils/ReactNavigationTypes";
+
+type MapNavigationProp = StackNavigationProp<NestedStackParamList, "Map">;
 
 //? While for the Image Picker is was only necessary to check for permissions for iOS (not for android), the location picker requires to ask for permissions for both android and iOS.
+//? Für die Preview wurde im Udemy-Kurs die Google Maps API verwendet (habe ich hier nicht übernommen) - 202. Video
 const LocationPicker = () => {
+  const navigationHook = useNavigation<MapNavigationProp>();
+  const [location, setLocation] = useState<{ lat: number; long: number }>();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
 
@@ -32,17 +42,31 @@ const LocationPicker = () => {
 
     if (hasPermission) {
       const location = await getCurrentPositionAsync();
-      console.log(location);
+      setLocation({
+        lat: location.coords.latitude,
+        long: location.coords.longitude,
+      });
     }
   };
 
-  const pickOnMapHandler = () => {};
+  const navigateToMap = () => {
+    navigationHook.navigate("Map");
+  };
+
+  //   const pickOnMapHandler = () => {
+  //? To use such a feature, MapView by expo can be used
+  //   };
 
   return (
     <View>
       <View>
         <Button title="get location" onPress={() => getLocationHandler()} />
-        <Button title="pick location on map" onPress={pickOnMapHandler} />
+        {location && (
+          <Text>
+            lat: {location.lat} & long: {location.long}
+          </Text>
+        )}
+        <Button title="get to Map" onPress={navigateToMap} />
       </View>
     </View>
   );

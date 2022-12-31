@@ -10,6 +10,7 @@ import SecondScreen from "./screens/SecondScreen";
 import FirstNested from "./screens/nested-screens/FirstNested";
 import SecondNested from "./screens/nested-screens/SecondNested";
 import LogIn from "./screens/nested-screens/LogIn";
+import Map from "./screens/Map";
 
 import type { StackParamList } from "./utils/ReactNavigationTypes";
 import type { NestedStackParamList } from "./utils/ReactNavigationTypes";
@@ -46,6 +47,15 @@ const TopTabsComponent = () => {
       <TopTabs.Screen
         name="LogIn"
         component={LogIn}
+        options={{
+          tabBarIcon: ({ focused, color }) => (
+            <Ionicons name="airplane" size={24} color={color} />
+          ),
+        }}
+      />
+      <TopTabs.Screen
+        name="Map"
+        component={Map}
         options={{
           tabBarIcon: ({ focused, color }) => (
             <Ionicons name="airplane" size={24} color={color} />

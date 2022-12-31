@@ -12,4 +12,5 @@ export type NestedStackParamList = {
   FirstNested: undefined;
   SecondNested: undefined;
   LogIn: undefined;
+  Map: undefined;
 };
