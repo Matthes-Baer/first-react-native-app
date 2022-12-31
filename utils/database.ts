@@ -1,8 +1,11 @@
-//! funktioniert derzeit nicht - 213. Video
+//? Alternative zu herkömmlichen Backend APIs für Databases wie Firebase, mongoDB etc.
+//? Das Ganze beruht auf dem SQL Syntax - es können also die dazugehörigen Befehle genutzt werden.
+
 import * as SQLite from "expo-sqlite";
 
 const database = SQLite.openDatabase("myDatabase.db");
 
+//? Diese Funktion muss im jeweiligen Screen (oder auch ganz am Anfang) ausgeführt werden, um die Database zu initialisieren, falls sie noch nicht vorhanden ist.
 export const init = () => {
   const promise = new Promise((resolve, reject) => {
     database.transaction((tx) => {
@@ -26,6 +29,7 @@ export const init = () => {
   return promise;
 };
 
+//? Diese Funktion sorgt dafür, dass ein Eintrag hinzugefügt werden kann auf Basis des Input-Objekts.
 export const insertData = (data: { title: string; description: string }) => {
   const promise = new Promise((resolve, reject) => {
     database.transaction((tx) => {
@@ -47,6 +51,7 @@ export const insertData = (data: { title: string; description: string }) => {
   return promise;
 };
 
+//? Diese Funktion liest die jeweiligen Daten aus der database.
 export const fetchData = () => {
   const promise = new Promise((resolve, reject) => {
     database.transaction((tx) => {
