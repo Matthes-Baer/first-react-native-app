@@ -1,5 +1,6 @@
 //? Alternative zu herkömmlichen Backend APIs für Databases wie Firebase, mongoDB etc.
 //? Das Ganze beruht auf dem SQL Syntax - es können also die dazugehörigen Befehle genutzt werden.
+//? Die Funktionen hier geben jeweils ein Promise zurück.
 
 import * as SQLite from "expo-sqlite";
 
