@@ -33,6 +33,13 @@
         {
           "cameraPermission": "The app accesses your camera in order to take photos"
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/icon.png",
+          "color": "#ffffff"
+        }
       ]
     ]
   }
