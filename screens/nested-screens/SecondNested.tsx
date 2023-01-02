@@ -60,15 +60,23 @@ export default function SecondScreen({ navigation, route }: Props) {
         });
     }
 
-    const subscription = Notifications.addNotificationReceivedListener(
+    //? Wird ausgeführt, wenn eine Notification erscheint.
+    const subscriptionReceive = Notifications.addNotificationReceivedListener(
       (notification) => {
         console.log(notification);
       }
     );
 
+    //? Wird ausgeführt, wenn der Nutzer auf die Notification-Meldung drückt.
+    const subscriptionPush =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
+
     //? Return in useEffect kann genutzt werden, um event listeners zu entfernen.
     return () => {
-      subscription.remove();
+      subscriptionReceive.remove();
+      subscriptionPush.remove();
     };
   }, []);
 
@@ -82,6 +90,7 @@ export default function SecondScreen({ navigation, route }: Props) {
       content: {
         title: "My first local notification",
         body: "This is the body of the notification.",
+        //? data kann mit dem event listener aus der Notification herausgelesen werden.
         data: { userName: "KAY" },
       },
       trigger: {
