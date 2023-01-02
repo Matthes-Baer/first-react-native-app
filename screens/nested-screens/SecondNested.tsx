@@ -1,4 +1,4 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Alert, Platform } from "react-native";
 import { useState, useEffect } from "react";
 
 //? TypeScript stuff for React Navigation
@@ -23,6 +23,7 @@ import LocationPicker from "../../components/LocationPicker";
 import { init, insertData, fetchData } from "../../utils/database";
 
 //? Stuff für Expo Notifications:
+//? 251. Video für Infos zu Local & Push Notifications
 import * as Notifications from "expo-notifications";
 
 Notifications.setNotificationHandler({
@@ -50,6 +51,38 @@ export default function SecondScreen({ navigation, route }: Props) {
 
   const [dbInitialized, setDbInitialized] = useState(false);
   const [databaseData, setDatabaseData] = useState<any>();
+
+  //? Hiermit wird der Push-Token (Expo Notifications) eingeholt - jedes Gerät hat seinen eigenen individuellen Push-Token
+  useEffect(() => {
+    //? Diese Funktion holt zunächst die nötigen Permissions ein.
+    const configurePushNotifications = async () => {
+      const { status } = await Notifications.getPermissionsAsync();
+      let finalStatus = status;
+      if (finalStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+
+      if (finalStatus !== "granted") {
+        Alert.alert(
+          "Permission required",
+          "Push notifcations need permissions."
+        );
+        return;
+      }
+      const pushToken = await Notifications.getExpoPushTokenAsync();
+      console.log(pushToken);
+
+      //? Das hier ist spezifisch für Android und stellt unter anderem die Wichtigkeit der Notification ein.
+      if (Platform.OS === "android") {
+        Notifications.setNotificationChannelAsync("default", {
+          name: "default",
+          importance: Notifications.AndroidImportance.DEFAULT,
+        });
+      }
+    };
+    configurePushNotifications();
+  }, []);
 
   useEffect(() => {
     if (isFocused) {
