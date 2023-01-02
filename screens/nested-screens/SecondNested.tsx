@@ -59,6 +59,17 @@ export default function SecondScreen({ navigation, route }: Props) {
           console.log(err);
         });
     }
+
+    const subscription = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log(notification);
+      }
+    );
+
+    //? Return in useEffect kann genutzt werden, um event listeners zu entfernen.
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   const fetchDatabaseData = async () => {
