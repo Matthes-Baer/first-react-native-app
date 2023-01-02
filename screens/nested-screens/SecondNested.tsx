@@ -22,6 +22,19 @@ import LocationPicker from "../../components/LocationPicker";
 //? SQLite database functions
 import { init, insertData, fetchData } from "../../utils/database";
 
+//? Stuff für Expo Notifications:
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+      shouldShowAlert: true,
+    };
+  },
+});
+
 type SecondNestedScreenNavigationProp = StackNavigationProp<
   NestedStackParamList,
   "SecondNested"
@@ -53,6 +66,19 @@ export default function SecondScreen({ navigation, route }: Props) {
     setDatabaseData(result);
   };
 
+  const scheduleNotifcationsHandler = async () => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "My first local notification",
+        body: "This is the body of the notification.",
+        data: { userName: "KAY" },
+      },
+      trigger: {
+        seconds: 2,
+      },
+    });
+  };
+
   return (
     <View>
       <Text>Second Screen Text</Text>
@@ -80,6 +106,10 @@ export default function SecondScreen({ navigation, route }: Props) {
             }
           )}
       </View>
+      <Button
+        title="schedule notification"
+        onPress={scheduleNotifcationsHandler}
+      />
     </View>
   );
 }
