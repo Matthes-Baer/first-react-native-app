@@ -140,6 +140,9 @@ export default function Home({ navigation }: Props) {
       <StatusBar // with the style one can adjust the color for the status bar (adjusting to dark or light background)
         style="dark"
       />
+      <Text>
+        Zum Thema Publishing kann Section 14 im Udemy-Kurs eingesehen werden.
+      </Text>
     </View>
   );
 }
