@@ -56,7 +56,7 @@ export default function SecondScreen({ navigation, route }: Props) {
   useEffect(() => {
     //? Diese Funktion holt zunächst die nötigen Permissions ein.
     //? Das Ganze kann getestet werden mittels https://expo.dev/notifications
-    //? Damit das mit den Push Notifcations klappt, muss das Projekt mit den Expo-Servern verbunden sein (im Account das Projekt hinzufügen)
+    //? Damit das mit den Push Notifcations klappt, muss das Projekt mit den Expo-Servern verbunden sein (im Account das Projekt hinzufügen) - das ist auch fürs Testen notwendig.
     const configurePushNotifications = async () => {
       const { status } = await Notifications.getPermissionsAsync();
       let finalStatus = status;
