@@ -55,6 +55,8 @@ export default function SecondScreen({ navigation, route }: Props) {
   //? Hiermit wird der Push-Token (Expo Notifications) eingeholt - jedes Gerät hat seinen eigenen individuellen Push-Token
   useEffect(() => {
     //? Diese Funktion holt zunächst die nötigen Permissions ein.
+    //? Das Ganze kann getestet werden mittels https://expo.dev/notifications
+    //? Damit das mit den Push Notifcations klappt, muss das Projekt mit den Expo-Servern verbunden sein (im Account das Projekt hinzufügen)
     const configurePushNotifications = async () => {
       const { status } = await Notifications.getPermissionsAsync();
       let finalStatus = status;
@@ -83,6 +85,20 @@ export default function SecondScreen({ navigation, route }: Props) {
     };
     configurePushNotifications();
   }, []);
+
+  //? This function needs the device's push notification token which normally would be fetched and then added in the backend, for example.
+  //? For this frontend example one can hardcode it to test how it works to send a push notifcation programmatically, but this isn't an appropriate real-world approach.
+  // const sendPushNotifcationProgrammatically = async () => {
+  //   const response = await fetch("https://exp.host/--/api/v2/push/send", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       to: "",
+  //       title: "Test - send from a device",
+  //       body: "This is the body",
+  //     }),
+  //   });
+  // };
 
   useEffect(() => {
     if (isFocused) {
@@ -160,9 +176,13 @@ export default function SecondScreen({ navigation, route }: Props) {
           )}
       </View>
       <Button
-        title="schedule notification"
+        title="schedule local notification"
         onPress={scheduleNotifcationsHandler}
       />
+      {/* <Button
+        title="invoke push notification - token not available"
+        onPress={sendPushNotifcationProgrammatically}
+      /> */}
     </View>
   );
 }
