@@ -1,3 +1,5 @@
+//! Für Richtiges Projekt neu anfangen am besten.
+
 import { StatusBar } from "expo-status-bar";
 import { Text, View, Button } from "react-native";
 
